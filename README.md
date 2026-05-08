@@ -7,10 +7,10 @@ Replication package for the paper:
 
 > **From Commits to Cognition: A Mixed-Methods Framework for Inferring Developer Mental Models from Repository Artifacts**
 >
-> Anderson Henrique da Silva — Neural Thinkers Lab AI Engineering LTDA ([ntlabs.dev](https://ntlabs.dev)) / IFSULDEMINAS
+> Anderson Henrique da Silva — [NTLabs.dev](https://ntlabs.dev) / IFSULDEMINAS
 > Contact: [anderson@ntlabs.dev](mailto:anderson@ntlabs.dev)
 
-Published: Zenodo, December 2025 | DOI: [10.5281/zenodo.18012186](https://doi.org/10.5281/zenodo.18012186) | Replication v1.1.0 (2026-05-08)
+Published: Zenodo, December 2025 | DOI: [10.5281/zenodo.18012186](https://doi.org/10.5281/zenodo.18012186) | Replication v1.1.1 (2026-05-08)
 
 ## Overview
 

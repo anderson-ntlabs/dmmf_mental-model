@@ -8,10 +8,10 @@ authors:
     given-names: "Anderson Henrique"
     name-particle: "da"
     orcid: "https://orcid.org/0009-0001-7144-4974"
-    affiliation: "Neural Thinkers Lab AI Engineering LTDA; Instituto Federal de Educação, Ciência e Tecnologia do Sul de Minas Gerais (IFSULDEMINAS)"
+    affiliation: "NTLabs.dev; IFSULDEMINAS"
     email: "anderson@ntlabs.dev"
     website: "https://ntlabs.dev"
-version: "1.1.0"
+version: "1.1.1"
 date-released: "2026-05-08"
 license: MIT
 repository-code: "https://github.com/anderson-ntlabs/dmmf_mental-model"
@@ -34,7 +34,7 @@ preferred-citation:
       given-names: "Anderson Henrique"
       name-particle: "da"
       orcid: "https://orcid.org/0009-0001-7144-4974"
-      affiliation: "Neural Thinkers Lab AI Engineering LTDA; IFSULDEMINAS"
+      affiliation: "NTLabs.dev; IFSULDEMINAS"
       email: "anderson@ntlabs.dev"
   doi: "10.5281/zenodo.18012186"
   year: 2025

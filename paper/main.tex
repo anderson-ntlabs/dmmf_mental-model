@@ -1,0 +1,399 @@
+% =============================================================================
+%  From Commits to Cognition: A Mixed-Methods Framework for Inferring
+%  Developer Mental Models from Repository Artifacts
+%
+%  Author: Anderson Henrique da Silva
+%  ORCID: 0009-0001-7144-4974
+%  DOI:   10.5281/zenodo.18012186
+%
+%  Source reconstructed 2026-05-08 from Zenodo PDF deposit (v1.0, December 2025)
+%  to enable continued versioning. Output should match the original PDF.
+% =============================================================================
+
+\documentclass{ntlabs-preprint}
+
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage[authoryear,round]{natbib}
+
+\graphicspath{{../figures/}}
+
+\title{From Commits to Cognition: A Mixed-Methods Framework for Inferring Developer Mental Models from Repository Artifacts}
+
+\author[1,2]{Anderson Henrique da Silva\,\orcidlink{0009-0001-7144-4974}}
+\affil[1]{\href{https://ntlabs.dev}{NTLabs.dev}}
+\affil[2]{IFSULDEMINAS, Minas Gerais, Brasil}
+\affil[ ]{Correspondence: \href{mailto:anderson@ntlabs.dev}{anderson@ntlabs.dev}}
+
+\date{December 2025}
+\ntlabsversion{v1.2.0}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Understanding how software developers think remains a fundamental challenge in empirical software engineering. While previous research has examined developer behavior through surveys, interviews, and controlled experiments, few studies have attempted to reverse-engineer cognitive patterns directly from repository artifacts. This paper presents a pilot study combining Mining Software Repositories (MSR), Reflexive Thematic Analysis, and Autoethnography to infer developer mental models from commits, code structure, documentation, and project organization. Through a longitudinal self-study analyzing 40 repositories and 2,799 commits over approximately three years (2022--2025), we identify four dimensions of developer cognition: cognitive, affective, conative, and reflective. The resulting Developer Mental Model Framework (DMMF) provides a replicable protocol for developer self-analysis and offers preliminary insights into the relationship between software artifacts and their creators' thought processes. We present quantitative analyses of commit patterns, BERT-based sentiment classification, and temporal clustering of refactor sequences alongside qualitative themes from reflexive analysis. As a single-subject exploratory study, our primary contribution is methodological: demonstrating the feasibility of inferring cognitive patterns from repository artifacts. We discuss limitations, validity threats, and directions for multi-subject validation.
+\end{abstract}
+
+\keywordsblock{Mining Software Repositories, Developer Cognition, Autoethnography, Thematic Analysis, Mental Models, Reflective Practice}
+
+\section{Introduction}
+
+\subsection{Context and Motivation}
+
+Software development is fundamentally a cognitive activity. Every line of code, every architectural decision, and every commit message reflects the mental processes of its creator. Yet, despite decades of research in empirical software engineering, we still lack comprehensive frameworks for understanding how individual developers think---their problem-solving patterns, abstraction preferences, and decision-making heuristics.
+
+The field of Mining Software Repositories (MSR) has made significant advances in extracting knowledge from software artifacts \citep{kagdi2007survey}. Researchers have successfully used repository data to predict bugs, estimate effort, and understand team dynamics. However, most MSR research focuses on what developers do rather than how they think. This represents a significant gap: if we could systematically infer cognitive patterns from artifacts, we could enable new forms of developer self-awareness, team composition optimization, and personalized tooling.
+
+\subsection{The Challenge of Studying Developer Cognition}
+
+Traditional approaches to studying developer cognition face several limitations:
+
+\begin{enumerate}
+    \item \textbf{Survey and interview methods} rely on self-report, which may be inaccurate or biased \citep{robillard2004how}
+    \item \textbf{Controlled experiments} occur in artificial settings that may not reflect real-world practice \citep{ko2015practical}
+    \item \textbf{Physiological measurements} (EEG, eye-tracking) are intrusive and difficult to scale
+    \item \textbf{Observational studies} are time-intensive and may alter behavior
+\end{enumerate}
+
+Repository artifacts, in contrast, represent the natural residue of cognitive activity. They are produced without research intervention, accumulate over time, and contain rich structural and semantic information. The question is: \textit{can we read them as a window into the developer's mind?}
+
+\subsection{Research Approach}
+
+This paper takes an unconventional approach: \textbf{reflexive autoethnography combined with systematic repository analysis}. The researcher is also the subject---analyzing their own 40 repositories, 2{,}799 commits, and extensive documentation produced over three years. This design offers unique advantages:
+
+\begin{itemize}
+    \item \textbf{Access to ground truth}: The subject can validate or refute interpretations
+    \item \textbf{Tacit knowledge}: Internal motivations and context are accessible
+    \item \textbf{Longitudinal depth}: Patterns across time and projects can be traced
+    \item \textbf{Methodological innovation}: Demonstrates a replicable self-analysis protocol
+\end{itemize}
+
+We situate this work within the \textbf{Design Science Research} paradigm \citep{hevner2004design}, where the primary contribution is an artifact---in this case, the Developer Mental Model Framework (DMMF).
+
+\subsection{Research Questions}
+
+This study addresses three research questions:
+
+\begin{itemize}
+    \item \textbf{RQ1}: What cognitive patterns can be inferred from software repository artifacts?
+    \item \textbf{RQ2}: How do different artifact types (commits, code, documentation) reflect different aspects of developer cognition?
+    \item \textbf{RQ3}: Can a systematic, replicable framework be developed for developer self-analysis through repository mining?
+\end{itemize}
+
+\subsection{Contributions}
+
+This paper makes the following contributions:
+
+\begin{enumerate}
+    \item \textbf{The Developer Mental Model Framework (DMMF)}: A four-dimensional model (cognitive, affective, conative, reflective) for characterizing developer cognition from artifacts
+    \item \textbf{A mixed-methods protocol}: Combining MSR, Reflexive Thematic Analysis, and Autoethnography for developer self-study
+    \item \textbf{Empirical findings}: Specific patterns identified in a longitudinal self-study
+    \item \textbf{Replication package}: Complete methodology, scripts, and data for independent verification
+\end{enumerate}
+
+\section{Background and Related Work}
+
+\subsection{Developer Cognition Research}
+
+The psychology of programming (PoP) emerged in the 1970s--80s as researchers recognized that understanding programmers' cognitive processes was essential for improving software development \citep{weinberg1971psychology, shneiderman1980software}. Key findings include chunking \citep{adelson1981problem}, mental models \citep{pennington1987stimulus}, and pattern recognition in code comprehension.
+
+Witkin et al. introduced the distinction between field-dependent and field-independent cognitive styles \citep{witkin1977field}. Field-independent individuals excel at separating elements from their context---a skill directly relevant to software decomposition.
+
+The Big Five personality model \citep{costa1992neo} has been applied to software engineering contexts. \citet{calefato2019personalities} conducted a large-scale study of 211 Apache developers, inferring personality from mailing list communications.
+
+\subsection{Mining Software Repositories}
+
+Mining Software Repositories (MSR) extracts knowledge from the rich data produced during software development \citep{hassan2008road}. While most MSR research focuses on code quality or project health, some studies have examined developer behavior, including commit patterns \citep{eyolfson2014correlations}, commit messages \citep{dyer2013boa}, and sentiment analysis \citep{guzman2014sentiment}.
+
+Existing MSR research primarily describes observable behavior. Our work extends this by attempting to infer underlying cognition---moving from ``what developers do'' to ``how developers think.''
+
+\subsection{Reflexive Research Methods}
+
+Autoethnography is a qualitative method where researchers use their own experience as primary data \citep{ellis2000autoethnography}. \citet{sharp2016role} documented the role of ethnographic methods in empirical software engineering. Our work extends this tradition by turning the ethnographic lens inward.
+
+\subsection{Theoretical Frameworks}
+
+Donald Schön's \textit{The Reflective Practitioner} \citep{schon1983reflective} challenged the ``technical rationality'' view of professional knowledge. Schön argued that practitioners engage in \textit{reflection-in-action} (thinking while doing) and \textit{reflection-on-action} (retrospective analysis).
+
+Braun and Clarke's reflexive thematic analysis \citep{braun2006thematic} provides a systematic approach to identifying patterns in qualitative data that we adapt for repository artifact analysis.
+
+\subsection{Synthesis: Developer Mental Model Framework}
+
+Integrating these perspectives, we propose that developer cognition can be understood through four dimensions (Table~\ref{tab:dmmf-dimensions}):
+
+\begin{table}[h]
+\centering
+\caption{Developer Mental Model Framework dimensions}
+\label{tab:dmmf-dimensions}
+\begin{tabular}{lll}
+\toprule
+\textbf{Dimension} & \textbf{Theoretical Basis} & \textbf{Repository Manifestation} \\
+\midrule
+Cognitive  & Witkin, chunking         & Code structure, abstraction levels \\
+Affective  & Big Five                 & Commit sentiment, quality practices \\
+Conative   & Values, motivation       & Project themes, documentation \\
+Reflective & Schön                    & Refactoring patterns, commit sequences \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Research Methodology}
+
+\subsection{Study Design}
+
+This study employs a \textbf{single-case autoethnographic design}.\footnote{Complete analysis scripts and raw data available at \url{https://github.com/anderson-ntlabs/dmmf_mental-model} for independent replication.} The case is the researcher's own development practice over approximately three years (November 2022 -- December 2025).
+
+\begin{table}[h]
+\centering
+\caption{Data sources}
+\label{tab:data-sources}
+\begin{tabular}{lll}
+\toprule
+\textbf{Source} & \textbf{Description} & \textbf{Volume} \\
+\midrule
+GitHub Repositories & Public repositories                 & 40 repos \\
+Commits             & Messages and metadata               & 2,799 commits \\
+Primary Languages   & Python, JavaScript, TypeScript      & 17, 8, 4 repos \\
+Date Range          & Development period                  & Nov 2022 -- Dec 2025 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Data Analysis}
+
+Analysis proceeded in three phases:
+
+\textbf{Phase 1: Quantitative MSR Analysis.} We extracted commit metadata via GitHub API and computed: temporal patterns (commit frequency by hour, day, month), commit type distribution (conventional commit prefixes), and message length statistics.
+
+\textbf{Phase 2: Reflexive Thematic Analysis.} Following \citet{braun2006thematic}, we employed a theoretically-informed thematic analysis. The DMMF dimensions provided deductive structure while remaining open to emergent themes.
+
+\textbf{Phase 3: Autoethnographic Reflection.} Journaling, memory work, and self-validation of interpretations against artifact evidence.
+
+\subsection{Validity and Reliability}
+
+\subsubsection{Primary Validity Threat: Interpretive Solipsism}
+
+The fundamental validity threat is \textbf{interpretive solipsism}: the researcher is the sole interpreter of their own artifacts, with no external validation. We adopt partial mitigations:
+
+\begin{itemize}
+    \item \textbf{Artifact primacy}: Interpretations grounded in observable patterns, not recalled intentions
+    \item \textbf{Falsifiability orientation}: Actively sought disconfirming evidence
+    \item \textbf{Transparency}: Complete scripts and data available for re-analysis
+    \item \textbf{Quantitative anchoring}: Qualitative themes supported by metrics
+\end{itemize}
+
+\subsubsection{What This Study Does NOT Establish}
+
+\begin{itemize}
+    \item We do \textit{not} claim the DMMF is valid for other developers
+    \item We do \textit{not} claim causal relationships between cognition and artifacts
+    \item We \textit{do} claim the methodology is feasible and replicable
+\end{itemize}
+
+\section{Results}
+
+\subsection{Dataset Overview}
+
+\begin{table}[h]
+\centering
+\caption{Dataset overview}
+\label{tab:dataset}
+\begin{tabular}{lr}
+\toprule
+\textbf{Metric} & \textbf{Value} \\
+\midrule
+Total repositories  & 40 \\
+Total commits       & 2,799 \\
+Primary languages   & Python (17), JavaScript (8), TypeScript (4) \\
+Date range          & November 2022 -- December 2025 \\
+Average commits/repo & 70.0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Temporal Patterns}
+
+Figure~\ref{fig:commit-heatmap} shows commit activity by day of week and hour (UTC). The pattern reveals peak activity during weekday evenings (18:00--23:00 local time), reduced weekend activity, and minimal commits during sleeping hours.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.85\textwidth]{commit_heatmap.png}
+\caption{Commit activity heatmap (day $\times$ hour, UTC)}
+\label{fig:commit-heatmap}
+\end{figure}
+
+\subsection{Commit Type Distribution}
+
+Using conventional commit prefixes, we categorized 2,799 commits (Table~\ref{tab:commit-types}).
+
+\begin{table}[h]
+\centering
+\caption{Commit type distribution}
+\label{tab:commit-types}
+\begin{tabular}{lrr}
+\toprule
+\textbf{Type} & \textbf{Count} & \textbf{\%} \\
+\midrule
+fix      & 528   & 18.9\% \\
+feat     & 457   & 16.3\% \\
+docs     & 222   & 7.9\% \\
+chore    & 164   & 5.9\% \\
+refactor & 125   & 4.5\% \\
+test     & 112   & 4.0\% \\
+other    & 1,146 & 40.9\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The high proportion of ``other'' (40.9\%) indicates commits without conventional prefixes, primarily from forked repositories and earlier development periods before adopting conventional commits.
+
+\subsection{Cognitive Dimension Findings}
+
+\textbf{Theme: Hierarchical Modularity.} Average directory depth across projects is 4.2 levels, with consistent functional separation patterns.
+
+\textit{Autoethnographic Insight:}
+\begin{quote}
+``I experience anxiety when code lacks clear boundaries. The act of creating a new directory feels like creating mental space---each folder is a container that lets me forget what's inside while working elsewhere.''
+\end{quote}
+
+\subsection{Affective Dimension Findings}
+
+\textbf{Theme: Quality as Non-Negotiable.} Test coverage averages 76\% in main projects; strict linting configurations present in 85\% of active repositories.
+
+\textbf{BERT Sentiment Analysis.} We applied DistilBERT\footnote{We chose DistilBERT over RoBERTa or GPT-based models for computational efficiency with comparable performance on sentiment tasks. Positive sentiment defined as BERT probability $>0.5$ for positive class.} sentiment classification to all 2,799 commit messages. Results reveal 82\% negative and 18\% positive sentiment overall---but this varies significantly by commit type (Table~\ref{tab:bert-sentiment}).
+
+\begin{table}[h]
+\centering
+\caption{Positive sentiment by commit type (BERT). The ``other'' category (40.9\% of commits) represents pre-conventional-commit messages, showing intermediate sentiment (16.6\% positive).}
+\label{tab:bert-sentiment}
+\begin{tabular}{lr}
+\toprule
+\textbf{Commit Type} & \textbf{Positive \%} \\
+\midrule
+feat     & 50.3\% \\
+style    & 42.1\% \\
+other    & 16.6\% \\
+docs     & 16.5\% \\
+refactor & 11.5\% \\
+test     & 5.3\% \\
+fix      & 4.8\% \\
+chore    & 3.7\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The pattern is interpretively rich: \texttt{feat} commits (building new things) carry positive affect, while \texttt{fix} commits (correcting problems) carry negative affect. This aligns with intuitive expectations and provides quantitative grounding for the affective dimension.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.85\textwidth]{bert_sentiment.png}
+\caption{BERT sentiment analysis of commit messages}
+\label{fig:bert-sentiment}
+\end{figure}
+
+\textit{Autoethnographic Insight:}
+\begin{quote}
+``Shipping without tests feels physically uncomfortable---like leaving home without locking the door. The test suite isn't just quality assurance; it's anxiety management.''
+\end{quote}
+
+\subsection{Conative Dimension Findings}
+
+\textbf{Theme: Technology as Civic Tool.} The flagship project (Cidadão.AI) targets government transparency, with 22 AI agents named after Brazilian historical figures.
+
+\subsection{Reflective Dimension Findings}
+
+\textbf{Theme: Continuous Course-Correction.} 41.9\% of commits (1,172 of 2,799) are refactor-related (\texttt{fix}, \texttt{refactor}, \texttt{cleanup}, \texttt{simplify}). Temporal analysis reveals distinct patterns:
+
+\begin{itemize}
+    \item \textbf{Reflection-in-action}: 83.4\% of refactor commits occur in clusters (within 2 hours of each other), with an average cluster size of 6.4 commits. This represents iterative refinement during active development.
+    \item \textbf{Reflection-on-action}: 16.6\% are isolated refactors occurring after gaps of $>2$ hours, representing deliberate retrospective improvements.
+\end{itemize}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.85\textwidth]{refactor_patterns.png}
+\caption{Temporal patterns in refactor commits. Left: cluster size distribution (max=68 commits). Right: inter-commit time gaps.}
+\label{fig:refactor-patterns}
+\end{figure}
+
+This quantitative distinction operationalizes Schön's theoretical framework: the data shows that most refinement happens during work (reflection-in-action), while a minority represents planned improvement sessions (reflection-on-action).
+
+\subsection{Failed Interpretations}
+
+To demonstrate falsifiability orientation, we report hypotheses that the data did not support:
+
+\textbf{Hypothesis 1: Longer commit messages at night.} We expected nocturnal commits (22:00--06:00) to have longer messages, reflecting more deliberate reflection during quiet hours. \textit{Results}: night average 487.8 characters vs.\ day average 334.5 characters ($+45.8\%$), but $t = 1.69$, $p = 0.091$---not statistically significant. \textit{Hypothesis rejected}.
+
+\textbf{Hypothesis 2: Weekend commits more experimental.} We expected weekends to have higher \texttt{feat} ratios (exploratory work without deadline pressure). \textit{Results}: weekend \texttt{feat} rate 11.1\% vs.\ weekday 17.0\% ($\chi^2 = 6.58$, $p = 0.01$)---the \textit{opposite} of our hypothesis. Weekdays, not weekends, show more feature development.
+
+These null and contrary findings constrain interpretation: not every intuitive hypothesis is supported by the data.
+
+\section{Discussion}
+
+\subsection{Interpretation of Findings}
+
+Our findings support Schön's characterization of professional practice as fundamentally reflective. The commit patterns reveal both reflection-in-action (iterative refinement sequences) and reflection-on-action (systematic documentation).
+
+The strong correlation between field-independent cognitive style and modular code structure raises questions about causality: does cognitive style drive code structure, or does practice reinforce style?
+
+\subsection{Artifact Underdetermination}
+
+A fundamental epistemological limitation deserves explicit attention: \textbf{artifact underdetermination}. The same repository pattern may admit multiple cognitive explanations. A deeply nested directory structure could reflect:
+
+\begin{itemize}
+    \item Field-independent cognitive style (our interpretation)
+    \item Client requirements mandating specific organization
+    \item Framework conventions (e.g., Django's prescribed structure)
+    \item Team coding standards from a previous workplace
+    \item Random historical accumulation without cognitive significance
+\end{itemize}
+
+We cannot definitively rule out non-cognitive explanations for artifact patterns. The autoethnographic component provides some constraint: in my case, the nested structure in Cidadão.AI was a deliberate cognitive choice---I recall refactoring from flat to hierarchical organization after struggling to locate agent logic across files. However, some Django projects in the dataset likely reflect framework convention rather than my cognition. Future multi-subject studies should include structured interviews to disambiguate cognitive from contextual explanations.
+
+\subsection{Reflexivity Statement}
+
+I approached this analysis as both developer and researcher, aware that my background in Computer Science predisposes me to value abstraction, modularity, and systematic organization. I actively sought patterns that contradicted my self-image---expecting, for instance, more experimental weekend work, which the data refuted. The autoethnographic stance requires acknowledging that complete objectivity is impossible; instead, I aimed for \textit{disciplined subjectivity}: using quantitative anchors to constrain interpretation while remaining open to what the artifacts revealed about my cognitive patterns.
+
+\subsection{Limitations}
+
+\begin{enumerate}
+    \item \textbf{Single subject ($N{=}1$)}: Findings require multi-subject validation
+    \item \textbf{Self-interpretation}: Risk of favorable bias despite mitigations
+    \item \textbf{Artifact incompleteness}: Private thoughts not captured
+    \item \textbf{Temporal confounds}: 3-year span includes skill and context changes
+    \item \textbf{Selection bias}: Only public repositories analyzed
+\end{enumerate}
+
+This study should be understood as a \textit{pilot} demonstrating feasibility, not a validated framework.
+
+\subsection{Future Work}
+
+Priority directions include: (1) multi-subject validation with diverse developers, (2) automated DMMF analysis tools, (3) longitudinal studies of cognitive evolution, and (4) team-level extension examining collective cognition.
+
+\textbf{Automation Feasibility.} The analyses presented here suggest viable paths toward automated DMMF profiling: commit classification via fine-tuned transformers (building on our BERT sentiment results), structural pattern detection via AST analysis, and temporal clustering algorithms for reflection pattern identification. A practical tool could generate developer cognitive profiles from repository URLs, enabling applications in team composition, personalized IDE features, and self-awareness dashboards.
+
+\section{Conclusion}
+
+This paper presented a pilot study demonstrating that meaningful cognitive patterns can be inferred from software repository artifacts. The Developer Mental Model Framework (DMMF) organizes these patterns into four dimensions: cognitive, affective, conative, and reflective.
+
+Our primary contribution is methodological: showing that MSR combined with reflexive thematic analysis and autoethnography provides a feasible approach to developer self-study. The honest acknowledgment of validity threats---particularly interpretive solipsism in single-subject research---establishes appropriate boundaries for the claims.
+
+Software repositories are traces of thought. Every directory structure reflects a decomposition decision; every commit message carries information about the developer's state. While this study cannot generalize beyond its single subject, it demonstrates that such traces can be systematically read.
+
+Socrates enjoined: ``Know thyself.'' For the modern developer: \textit{Mine thy repositories}.
+
+\section*{Data Availability}
+
+Replication package including scripts, data, and figures available at:\\
+\url{https://github.com/anderson-ntlabs/dmmf_mental-model}
+
+\section*{Conflict of Interest}
+
+None declared.
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\end{document}

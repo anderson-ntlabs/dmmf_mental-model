@@ -1,4 +1,4 @@
-# DMMF Replication Package
+# DMMF Paper + Replication Package
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18012186.svg)](https://doi.org/10.5281/zenodo.18012186)
 [![ORCID](https://img.shields.io/badge/ORCID-0009--0001--7144--4974-A6CE39?logo=orcid&logoColor=white)](https://orcid.org/0009-0001-7144-4974)
@@ -24,6 +24,11 @@ This repository contains data, scripts, and figures for replicating the Develope
 ## Repository Structure
 
 ```
+├── paper/
+│   ├── main.tex                       # LaTeX source (NTLabs.dev template)
+│   ├── references.bib                 # Bibliography
+│   ├── ntlabs-preprint.cls            # NTLabs.dev preprint template
+│   └── zenodo-metadata.json           # Zenodo deposit metadata
 ├── data/
 │   ├── commits.csv                    # 2,799 commits with metadata
 │   ├── repos.json                     # 40 repository metadata
@@ -39,6 +44,19 @@ This repository contains data, scripts, and figures for replicating the Develope
     ├── msr_analysis.py                # Data extraction
     └── enhanced_analysis.py           # BERT + temporal analysis
 ```
+
+### Building the paper
+
+```bash
+cd paper
+pdflatex main.tex
+bibtex main
+pdflatex main.tex
+pdflatex main.tex
+```
+
+The LaTeX source was reconstructed from the v1.0 Zenodo PDF deposit on 2026-05-08
+to enable continued versioning under the NTLabs.dev canonical preprint template.
 
 ## Quick Start
 

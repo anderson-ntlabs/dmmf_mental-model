@@ -19,3 +19,14 @@ Thumbs.db
 
 # Jupyter
 .ipynb_checkpoints/
+
+# Paper LaTeX build artifacts
+paper/*.aux
+paper/*.bbl
+paper/*.blg
+paper/*.log
+paper/*.out
+paper/*.toc
+paper/*.fls
+paper/*.fdb_latexmk
+paper/.original-pdf-extract.txt

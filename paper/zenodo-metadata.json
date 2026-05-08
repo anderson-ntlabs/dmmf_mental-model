@@ -1,0 +1,58 @@
+{
+  "metadata": {
+    "title": "From Commits to Cognition: A Mixed-Methods Framework for Inferring Developer Mental Models from Repository Artifacts",
+    "upload_type": "publication",
+    "publication_type": "preprint",
+    "publication_date": "2026-05-08",
+    "description": "<p>Understanding how software developers think remains a fundamental challenge in empirical software engineering. While previous research has examined developer behavior through surveys, interviews, and controlled experiments, few studies have attempted to reverse-engineer cognitive patterns directly from repository artifacts.</p><p>This paper presents a pilot study combining <strong>Mining Software Repositories (MSR)</strong>, <strong>Reflexive Thematic Analysis</strong>, and <strong>Autoethnography</strong> to infer developer mental models from commits, code structure, documentation, and project organization. Through a longitudinal self-study analyzing 40 repositories and 2,799 commits over approximately three years (2022&ndash;2025), we identify four dimensions of developer cognition: cognitive, affective, conative, and reflective.</p><p>The resulting <strong>Developer Mental Model Framework (DMMF)</strong> provides a replicable protocol for developer self-analysis. We present quantitative analyses of commit patterns, BERT-based sentiment classification, and temporal clustering of refactor sequences alongside qualitative themes from reflexive analysis.</p><p>As a single-subject exploratory study, our primary contribution is methodological: demonstrating the feasibility of inferring cognitive patterns from repository artifacts.</p>",
+    "creators": [
+      {
+        "name": "Silva, Anderson Henrique da",
+        "affiliation": "NTLabs.dev; IFSULDEMINAS",
+        "orcid": "0009-0001-7144-4974",
+        "email": "anderson@ntlabs.dev"
+      }
+    ],
+    "keywords": [
+      "Mining Software Repositories",
+      "Developer Cognition",
+      "Autoethnography",
+      "Reflexive Thematic Analysis",
+      "Mental Models",
+      "Reflective Practice",
+      "BERT",
+      "Sentiment Analysis",
+      "Software Engineering"
+    ],
+    "subjects": [
+      {
+        "term": "Computer science",
+        "identifier": "http://id.loc.gov/authorities/subjects/sh89003285",
+        "scheme": "url"
+      },
+      {
+        "term": "Software engineering",
+        "identifier": "http://id.loc.gov/authorities/subjects/sh87004597",
+        "scheme": "url"
+      },
+      {
+        "term": "Cognitive science",
+        "identifier": "http://id.loc.gov/authorities/subjects/sh87007652",
+        "scheme": "url"
+      }
+    ],
+    "language": "eng",
+    "access_right": "open",
+    "license": "cc-by-4.0",
+    "related_identifiers": [
+      {
+        "identifier": "https://github.com/anderson-ntlabs/dmmf_mental-model",
+        "relation": "isSupplementTo",
+        "resource_type": "software",
+        "scheme": "url"
+      }
+    ],
+    "version": "1.2.0",
+    "notes": "v1.2.0 (2026-05-08): adopt NTLabs.dev canonical preprint template (single-column, monochrome). Source LaTeX reconstructed from the v1.0 PDF deposit (the original Overleaf source was not preserved locally) and committed to the repository for future versioning at paper/main.tex. Corrected metadata errors from v1.0: ORCID was 0000-0002-5139-0980 (incorrect, not the author's), now 0009-0001-7144-4974 (verified via Lattes); affiliation was UFRJ (incorrect, the author was never affiliated with UFRJ), now NTLabs.dev / IFSULDEMINAS. Added institutional email (anderson@ntlabs.dev). GitHub repository URL updated from anderson-ufrj to anderson-ntlabs after account rename. No changes to scientific content or empirical findings."
+  }
+}

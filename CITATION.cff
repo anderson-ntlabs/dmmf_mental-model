@@ -11,12 +11,19 @@ authors:
     affiliation: "NTLabs.dev; IFSULDEMINAS"
     email: "anderson@ntlabs.dev"
     website: "https://ntlabs.dev"
-version: "1.1.1"
+version: "1.2.0"
 date-released: "2026-05-08"
 license: MIT
 repository-code: "https://github.com/anderson-ntlabs/dmmf_mental-model"
 url: "https://doi.org/10.5281/zenodo.18012186"
 doi: "10.5281/zenodo.18012186"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.18012186"
+    description: "Concept DOI (resolves to latest version)"
+  - type: doi
+    value: "10.5281/zenodo.20090043"
+    description: "Version DOI for v1.2.0 (2026-05-08)"
 keywords:
   - developer mental models
   - mining software repositories
@@ -37,7 +44,7 @@ preferred-citation:
       affiliation: "NTLabs.dev; IFSULDEMINAS"
       email: "anderson@ntlabs.dev"
   doi: "10.5281/zenodo.18012186"
-  year: 2025
-  month: 12
+  year: 2026
+  month: 5
   publisher:
     name: "Zenodo"

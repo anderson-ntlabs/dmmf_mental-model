@@ -1,12 +1,16 @@
 # DMMF Replication Package
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18012186.svg)](https://doi.org/10.5281/zenodo.18012186)
+[![ORCID](https://img.shields.io/badge/ORCID-0009--0001--7144--4974-A6CE39?logo=orcid&logoColor=white)](https://orcid.org/0009-0001-7144-4974)
 
 Replication package for the paper:
 
 > **From Commits to Cognition: A Mixed-Methods Framework for Inferring Developer Mental Models from Repository Artifacts**
+>
+> Anderson Henrique da Silva — Neural Thinkers Lab AI Engineering LTDA ([ntlabs.dev](https://ntlabs.dev)) / IFSULDEMINAS
+> Contact: [anderson@ntlabs.dev](mailto:anderson@ntlabs.dev)
 
-Published: Zenodo, December 2025 | DOI: [10.5281/zenodo.18012186](https://doi.org/10.5281/zenodo.18012186)
+Published: Zenodo, December 2025 | DOI: [10.5281/zenodo.18012186](https://doi.org/10.5281/zenodo.18012186) | Replication v1.1.0 (2026-05-08)
 
 ## Overview
 
@@ -102,7 +106,8 @@ If you use this replication package, please cite:
   year         = 2025,
   publisher    = {Zenodo},
   doi          = {10.5281/zenodo.18012186},
-  url          = {https://doi.org/10.5281/zenodo.18012186}
+  url          = {https://doi.org/10.5281/zenodo.18012186},
+  note         = {ORCID: 0009-0001-7144-4974}
 }
 ```
 

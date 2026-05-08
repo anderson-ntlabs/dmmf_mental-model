@@ -7,12 +7,14 @@ authors:
   - family-names: "Silva"
     given-names: "Anderson Henrique"
     name-particle: "da"
-    orcid: "https://orcid.org/0000-0002-5139-0980"
-    affiliation: "Universidade Federal do Rio de Janeiro (UFRJ)"
-version: "1.0.0"
-date-released: "2025-12-21"
+    orcid: "https://orcid.org/0009-0001-7144-4974"
+    affiliation: "Neural Thinkers Lab AI Engineering LTDA; Instituto Federal de Educação, Ciência e Tecnologia do Sul de Minas Gerais (IFSULDEMINAS)"
+    email: "anderson@ntlabs.dev"
+    website: "https://ntlabs.dev"
+version: "1.1.0"
+date-released: "2026-05-08"
 license: MIT
-repository-code: "https://github.com/anderson-ufrj/dmmf_mental-model"
+repository-code: "https://github.com/anderson-ntlabs/dmmf_mental-model"
 url: "https://doi.org/10.5281/zenodo.18012186"
 doi: "10.5281/zenodo.18012186"
 keywords:
@@ -31,7 +33,9 @@ preferred-citation:
     - family-names: "Silva"
       given-names: "Anderson Henrique"
       name-particle: "da"
-      orcid: "https://orcid.org/0000-0002-5139-0980"
+      orcid: "https://orcid.org/0009-0001-7144-4974"
+      affiliation: "Neural Thinkers Lab AI Engineering LTDA; IFSULDEMINAS"
+      email: "anderson@ntlabs.dev"
   doi: "10.5281/zenodo.18012186"
   year: 2025
   month: 12

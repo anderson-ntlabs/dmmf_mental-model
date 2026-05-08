@@ -14,7 +14,10 @@ import json
 import os
 
 # Configuration
-GITHUB_USER = "anderson-ufrj"
+# Note: GitHub account renamed from anderson-ufrj to anderson-ntlabs (v1.1.0, 2026-05-08).
+# The original DMMF data (data/repos.json) was collected before the rename and contains
+# the previous handle. This script targets the current account for reproducibility.
+GITHUB_USER = "anderson-ntlabs"
 OUTPUT_DIR = "../figures"
 DATA_DIR = "../data"
 
